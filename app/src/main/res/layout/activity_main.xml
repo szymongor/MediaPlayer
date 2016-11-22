@@ -10,8 +10,57 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.karolinaszymon.mediaplayer.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:orientation="horizontal"
+        android:id="@+id/playlist_menu"
+        >
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/buttonSongs"
+            android:layout_weight="1"
+            android:text="Songs"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/buttonSavedPlaylists"
+            android:layout_weight="1"
+            android:text="Saved\nPlaylists"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/options_menu"
+        >
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/buttonAddPlaylist"
+            android:layout_weight="1"
+            android:text="Add Playlist"
+            />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/buttonDeletePlaylist"
+            android:layout_weight="1"
+            android:text="Delete\nPlaylist"
+            />
+    </LinearLayout>
+
+</LinearLayout>
+
 </RelativeLayout>
