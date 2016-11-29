@@ -1,0 +1,3 @@
+[submodule "MediaPlayer"]
+	path = MediaPlayer
+	url = https://github.com/szymongor/MediaPlayer.git
