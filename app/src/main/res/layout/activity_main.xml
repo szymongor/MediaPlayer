@@ -132,7 +132,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="One"/>
+                android:text="One"/><!-- add id name of button -->
 
             <Button
                 android:layout_width="match_parent"
@@ -140,20 +140,18 @@
                 android:layout_weight="1"
                 android:text="One"/>
 
-            <ImageButton
+            <Button
                 android:id="@+id/buttonPlay"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_play_button"
                 android:layout_weight="1"
-                android:background="@drawable/button_round"
-                android:src="@drawable/img_pause"
+                android:background="@drawable/selector_button_play"
                 />
 
-            <ImageButton
+            <Button
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/height_stop_button"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/button_round"
                 android:text="One"/>
 
             <Button
