@@ -146,7 +146,7 @@
                 android:layout_height="@dimen/height_play_button"
                 android:layout_weight="1"
                 android:background="@drawable/button_round"
-                android:src="@drawable/img_play2"
+                android:src="@drawable/img_pause"
                 />
 
             <ImageButton
