@@ -25,14 +25,14 @@
         >
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/buttonSongs"
             android:layout_weight="1"
             android:text="Songs"
             />
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/buttonSavedPlaylists"
             android:layout_weight="1"
@@ -71,7 +71,9 @@
         android:id="@+id/playLayout"
         android:gravity="bottom"
         android:orientation="vertical"
-        >
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -128,37 +130,58 @@
             android:weightSum="5"
             >
 
-            <Button
+            <ImageButton
+                android:id="@+id/buttonViewAllPlaylists"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/layout_button_margin"
                 android:layout_weight="1"
-                android:text="One"/><!-- add id name of button -->
+                android:text="One"
+                android:background="@drawable/round_button"
+                android:src="@drawable/img_list"
+                android:layout_gravity="center"/>
 
-            <Button
+            <ImageButton
+                android:id="@+id/buttonPlayPreviousSong"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/layout_button_margin"
                 android:layout_weight="1"
-                android:text="One"/>
+                android:text="One"
+                android:background="@drawable/round_button"
+                android:src="@drawable/img_backward"
+                android:layout_gravity="center"/>
 
-            <Button
+            <ImageButton
                 android:id="@+id/buttonPlay"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_play_button"
+                android:layout_margin="@dimen/layout_button_margin"
                 android:layout_weight="1"
                 android:background="@drawable/selector_button_play"
                 />
 
-            <Button
+            <ImageButton
+                android:id="@+id/buttonPlayNextSong"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/layout_button_margin"
                 android:layout_weight="1"
-                android:text="One"/>
+                android:text="One"
+                android:background="@drawable/round_button"
+                android:src="@drawable/img_forward"
+                android:layout_gravity="center"/>
 
-            <Button
+            <ImageButton
+                android:id="@+id/buttonAddToPlaylist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/layout_button_margin"
                 android:layout_weight="1"
-                android:text="Two"/>
+                android:text="+"
+                android:background="@drawable/round_button"
+                android:src="@drawable/img_plus"
+                android:layout_gravity="center"/>
         </LinearLayout>
 
     </LinearLayout>

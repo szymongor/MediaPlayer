@@ -8,7 +8,7 @@ import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button buttonPlay;
+    ImageButton buttonPlay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initUIComponents() {
-        buttonPlay = (Button) findViewById(R.id.buttonPlay);
+        buttonPlay = (ImageButton) findViewById(R.id.buttonPlay);
         buttonPlay.setOnClickListener(clickPlay);
     }
 
