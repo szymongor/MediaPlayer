@@ -1,5 +1,7 @@
 package com.example.karolinaszymon.mediaplayer;
 
+import android.content.Context;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,11 +11,13 @@ import android.widget.ImageButton;
 public class MainActivity extends AppCompatActivity {
 
     ImageButton buttonPlay;
+    Player player;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        player = new Player(this);
         initUIComponents();
     }
 
@@ -26,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             v.setActivated(!v.isActivated());
+            player.playOrStopSound();
         }
     };
 }
