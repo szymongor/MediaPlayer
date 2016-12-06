@@ -6,7 +6,7 @@ package com.example.karolinaszymon.mediaplayer;
 
 public class Utilities {
 
-    public String milliSecondsToTimer(long milliseconds){
+    public static String milliSecondsToTimer(long milliseconds){
         String totalTimeString = "";
         String secondsString = "";
 
@@ -28,7 +28,12 @@ public class Utilities {
         return totalTimeString;
     }
 
-    public int getProgressPercentage(long currentTime, long totalTime){
+    public static String getCurrentTime(int percent, long milliseconds) {
+        long currentMilliseconds = (percent * milliseconds) / 100;
+        return milliSecondsToTimer(currentMilliseconds);
+    }
+
+    public static int getProgressPercentage(long currentTime, long totalTime){
         Double percentage = (double) 0;
 
         long currentSeconds = (int) (currentTime / 1000);

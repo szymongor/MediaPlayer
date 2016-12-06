@@ -2,12 +2,17 @@ package com.example.karolinaszymon.mediaplayer;
 
 import android.content.Context;
 import android.media.MediaPlayer;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import static android.R.id.progress;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     TextView textViewCurrentTime;
     TextView textViewTotalTime;
 
+    SeekBar seekBar;
+
     Player player;
 
     @Override
@@ -24,9 +31,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        player = new Player(this);
-
         initUIComponents();
+        player = new Player(this, seekBar);
+        seekBar.setOnSeekBarChangeListener(new SeekBarListener(textViewCurrentTime, player));
     }
 
     private void initUIComponents() {
@@ -36,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
         textViewSongTitle = (TextView) findViewById(R.id.textViewTitle);
         textViewCurrentTime = (TextView) findViewById(R.id.textViewCurrentTime);
         textViewTotalTime = (TextView) findViewById(R.id.textViewTotalTime);
+
+        seekBar = (SeekBar) findViewById(R.id.seekBar);
     }
 
     private View.OnClickListener clickPlay = new View.OnClickListener() {
@@ -43,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(View v) {
             v.setActivated(!v.isActivated());
             player.playOrStopSound();
+            textViewTotalTime.setText(player.getTotalDuration());
         }
     };
+
 }
