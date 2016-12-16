@@ -1,6 +1,7 @@
 package com.example.karolinaszymon.mediaplayer;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,8 @@ import android.widget.Toast;
 import static android.R.id.progress;
 
 public class MainActivity extends AppCompatActivity {
+
+    Button buttonSongs;
 
     ImageButton buttonPlay;
 
@@ -37,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initUIComponents() {
+        buttonSongs = (Button) findViewById(R.id.buttonSongs);
+        buttonSongs.setOnClickListener(clickButtonSongs);
+
         buttonPlay = (ImageButton) findViewById(R.id.buttonPlay);
         buttonPlay.setOnClickListener(clickPlay);
 
@@ -47,6 +53,14 @@ public class MainActivity extends AppCompatActivity {
         seekBar = (SeekBar) findViewById(R.id.seekBar);
     }
 
+    private View.OnClickListener clickButtonSongs = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(MainActivity.this,songs_list.class);
+            startActivity(intent);
+        }
+    };
+
     private View.OnClickListener clickPlay = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -55,5 +69,6 @@ public class MainActivity extends AppCompatActivity {
             textViewTotalTime.setText(player.getTotalDuration());
         }
     };
+
 
 }
