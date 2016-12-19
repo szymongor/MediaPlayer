@@ -77,7 +77,8 @@ public class Player {
     }
 
     public void startNewSong(File song){
-        playOrStopSound();
+        //playOrStopSound();
+        mp.pause();
         Uri uriSong = Uri.fromFile(song);
         mp = MediaPlayer.create(context,uriSong);
         playOrStopSound();
