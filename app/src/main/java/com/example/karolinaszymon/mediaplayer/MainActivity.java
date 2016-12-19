@@ -1,9 +1,11 @@
 package com.example.karolinaszymon.mediaplayer;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -31,12 +33,22 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},1);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         initUIComponents();
+
         player = new Player(this, seekBar);
+        PlayerManager.setPlayer(player);
         seekBar.setOnSeekBarChangeListener(new SeekBarListener(textViewCurrentTime, player));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        initPlay();
     }
 
     private void initUIComponents() {
@@ -46,11 +58,17 @@ public class MainActivity extends AppCompatActivity {
         buttonPlay = (ImageButton) findViewById(R.id.buttonPlay);
         buttonPlay.setOnClickListener(clickPlay);
 
+
         textViewSongTitle = (TextView) findViewById(R.id.textViewTitle);
         textViewCurrentTime = (TextView) findViewById(R.id.textViewCurrentTime);
         textViewTotalTime = (TextView) findViewById(R.id.textViewTotalTime);
 
         seekBar = (SeekBar) findViewById(R.id.seekBar);
+    }
+
+    private void initPlay(){
+        buttonPlay.setActivated(!player.getIsPaused());
+
     }
 
     private View.OnClickListener clickButtonSongs = new View.OnClickListener() {

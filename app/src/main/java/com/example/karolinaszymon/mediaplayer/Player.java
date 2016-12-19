@@ -2,8 +2,11 @@ package com.example.karolinaszymon.mediaplayer;
 
 import android.content.Context;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Handler;
 import android.widget.SeekBar;
+
+import java.io.File;
 
 /**
  * Created by Karo2 on 2016-12-03.
@@ -71,5 +74,12 @@ public class Player {
 
     public void setIsPaused(boolean is) {
         isPaused = is;
+    }
+
+    public void startNewSong(File song){
+        playOrStopSound();
+        Uri uriSong = Uri.fromFile(song);
+        mp = MediaPlayer.create(context,uriSong);
+        playOrStopSound();
     }
 }
