@@ -69,9 +69,9 @@ public class songs_list extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 File song = songsStorage.getSelectedFile(position);
                 player.startNewSong(song);
+                buttonPlay.setActivated(!player.getIsPaused());
             }
         });
-
     }
 
     private void initUIComponents() {
@@ -82,9 +82,17 @@ public class songs_list extends AppCompatActivity {
 
         textViewSongTitle = (TextView) findViewById(R.id.textViewTitle);
         textViewCurrentTime = (TextView) findViewById(R.id.textViewCurrentTime);
+        //textViewCurrentTime.setText(player.getCurrentTime());
+
         textViewTotalTime = (TextView) findViewById(R.id.textViewTotalTime);
+        textViewTotalTime.setText(player.getTotalDuration());
 
         seekBar = (SeekBar) findViewById(R.id.seekBar);
+        SeekBarListener seekBarListener = PlayerManager.getSeekBarListener();
+        seekBarListener.setTextView(textViewCurrentTime);
+        seekBar.setOnSeekBarChangeListener(seekBarListener);
+        //seekBar.setProgress(player.);
+
     }
 
     private View.OnClickListener clickPlay = new View.OnClickListener() {

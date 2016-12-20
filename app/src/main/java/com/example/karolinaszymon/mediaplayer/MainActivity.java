@@ -40,8 +40,10 @@ public class MainActivity extends AppCompatActivity {
         initUIComponents();
 
         player = new Player(this, seekBar);
+        SeekBarListener seek = new SeekBarListener(textViewCurrentTime, player);
+        seekBar.setOnSeekBarChangeListener(seek);
         PlayerManager.setPlayer(player);
-        seekBar.setOnSeekBarChangeListener(new SeekBarListener(textViewCurrentTime, player));
+        PlayerManager.setSeekBarListener(seek);
     }
 
     @Override
@@ -68,7 +70,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void initPlay(){
         buttonPlay.setActivated(!player.getIsPaused());
-
+        SeekBarListener seekBarListener = PlayerManager.getSeekBarListener();
+        seekBarListener.setTextView(textViewCurrentTime);
+        //textViewCurrentTime.setText(player.getCurrentTime());
+        //textViewTotalTime.setText(player.getTotalDuration());
     }
 
     private View.OnClickListener clickButtonSongs = new View.OnClickListener() {

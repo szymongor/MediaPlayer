@@ -25,6 +25,10 @@ public class SeekBarListener implements SeekBar.OnSeekBarChangeListener {
         textViewCurrentTime.setText(Utilities.getCurrentTime(progress, player.getMilliTotalDuration()));
     }
 
+    public void setTextView(TextView tv){
+        this.textViewCurrentTime = tv;
+    }
+
     public void onStartTrackingTouch(SeekBar seekBar) {}
 
     public void onStopTrackingTouch(SeekBar seekBar) {
