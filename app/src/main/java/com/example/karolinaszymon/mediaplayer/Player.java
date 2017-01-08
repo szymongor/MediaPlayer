@@ -1,6 +1,7 @@
 package com.example.karolinaszymon.mediaplayer;
 
 import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Handler;
@@ -14,16 +15,18 @@ import java.io.File;
 
 public class Player {
 
+    private AudioManager audio;
     private MediaPlayer mp;
     private Context context;
     private SeekBar seekBar;
     private Handler handler = new Handler();
     private boolean isPaused = true;
 
-    public Player(Context c, SeekBar sb) {
+    public Player(Context c, SeekBar sb, AudioManager audio) {
         context = c;
         seekBar = sb;
         mp = MediaPlayer.create(context, R.raw.marysia);
+        this.audio = audio;
     }
 
     public void playOrStopSound(){
@@ -82,5 +85,9 @@ public class Player {
         Uri uriSong = Uri.fromFile(song);
         mp = MediaPlayer.create(context,uriSong);
         playOrStopSound();
+    }
+
+    public AudioManager getAudioManager(){
+        return audio;
     }
 }

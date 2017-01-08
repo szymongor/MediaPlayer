@@ -1,7 +1,9 @@
 package com.example.karolinaszymon.mediaplayer;
 
+import android.media.AudioManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,6 +23,8 @@ import java.util.Map;
 
 public class songs_list extends AppCompatActivity {
 
+    private AudioManager audio;
+
     ListView songsListView;
     Player player;
 
@@ -38,7 +42,7 @@ public class songs_list extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_songs_list);
         this.player = PlayerManager.getPlayer();
-
+        audio = this.player.getAudioManager();
         init();
     }
 
@@ -103,4 +107,20 @@ public class songs_list extends AppCompatActivity {
             textViewTotalTime.setText(player.getTotalDuration());
         }
     };
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_VOLUME_UP:
+                audio.adjustStreamVolume(AudioManager.STREAM_MUSIC,
+                        AudioManager.ADJUST_RAISE, AudioManager.FLAG_SHOW_UI);
+                return true;
+            case KeyEvent.KEYCODE_VOLUME_DOWN:
+                audio.adjustStreamVolume(AudioManager.STREAM_MUSIC,
+                        AudioManager.ADJUST_LOWER, AudioManager.FLAG_SHOW_UI);
+                return true;
+            default:
+                return false;
+        }
+    }
 }
