@@ -3,11 +3,13 @@ package com.example.karolinaszymon.mediaplayer;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -18,6 +20,8 @@ import android.widget.Toast;
 import static android.R.id.progress;
 
 public class MainActivity extends AppCompatActivity {
+
+    private AudioManager audio;
 
     Button buttonSongs;
 
@@ -37,9 +41,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+
         initUIComponents();
 
-        player = new Player(this, seekBar);
+        player = new Player(this, seekBar, audio);
         SeekBarListener seek = new SeekBarListener(textViewCurrentTime, player);
         seekBar.setOnSeekBarChangeListener(seek);
         PlayerManager.setPlayer(player);
@@ -92,6 +98,22 @@ public class MainActivity extends AppCompatActivity {
             textViewTotalTime.setText(player.getTotalDuration());
         }
     };
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_VOLUME_UP:
+                audio.adjustStreamVolume(AudioManager.STREAM_MUSIC,
+                        AudioManager.ADJUST_RAISE, AudioManager.FLAG_SHOW_UI);
+                return true;
+            case KeyEvent.KEYCODE_VOLUME_DOWN:
+                audio.adjustStreamVolume(AudioManager.STREAM_MUSIC,
+                        AudioManager.ADJUST_LOWER, AudioManager.FLAG_SHOW_UI);
+                return true;
+            default:
+                return false;
+        }
+    }
 
 
 }
