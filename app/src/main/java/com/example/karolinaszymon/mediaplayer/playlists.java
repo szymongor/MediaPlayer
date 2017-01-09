@@ -5,27 +5,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.SeekBar;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-public class songs_list extends AppCompatActivity {
+public class playlists extends AppCompatActivity {
 
     private AudioManager audio;
 
-    ListView songsListView;
     Player player;
 
     ImageButton buttonPlay;
@@ -37,45 +24,20 @@ public class songs_list extends AppCompatActivity {
     SeekBar seekBar;
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_songs_list);
+        setContentView(R.layout.activity_playlists);
         this.player = PlayerManager.getPlayer();
         audio = this.player.getAudioManager();
         init();
     }
 
     private void init(){
-        initList();
         initUIComponents();
 
-    }
-
-    private void initList(){
-        songsListView = (ListView) findViewById(R.id.songsListView);
-
-        List<Map<String, String>> data = new ArrayList<Map<String, String>>();
-
-        final SongsStorage songsStorage = new SongsStorage();
-
-        SimpleAdapter adapter = new SimpleAdapter(this, songsStorage.getSongsList(),
-                android.R.layout.simple_list_item_2,
-                new String[] {"title", "album"},
-                new int[] {android.R.id.text1,
-                        android.R.id.text2});
-
-
-        songsListView.setAdapter(adapter);
-        songsListView.setClickable(true);
-        songsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                File song = songsStorage.getSelectedFile(position);
-                player.startNewSong(song);
-                buttonPlay.setActivated(!player.getIsPaused());
-            }
-        });
     }
 
     private void initUIComponents() {

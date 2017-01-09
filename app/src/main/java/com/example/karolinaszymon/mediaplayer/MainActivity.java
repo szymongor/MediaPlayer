@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private AudioManager audio;
 
     Button buttonSongs;
+    Button buttonPlayLists;
 
     ImageButton buttonPlay;
 
@@ -63,6 +64,9 @@ public class MainActivity extends AppCompatActivity {
         buttonSongs = (Button) findViewById(R.id.buttonSongs);
         buttonSongs.setOnClickListener(clickButtonSongs);
 
+        buttonPlayLists = (Button) findViewById(R.id.buttonSavedPlaylists);
+        buttonPlayLists.setOnClickListener(clickButtonPlayList);
+
         buttonPlay = (ImageButton) findViewById(R.id.buttonPlay);
         buttonPlay.setOnClickListener(clickPlay);
 
@@ -86,6 +90,14 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(MainActivity.this,songs_list.class);
+            startActivity(intent);
+        }
+    };
+
+    private View.OnClickListener clickButtonPlayList = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(MainActivity.this,playlists.class);
             startActivity(intent);
         }
     };
