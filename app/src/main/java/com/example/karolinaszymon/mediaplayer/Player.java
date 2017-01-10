@@ -8,6 +8,8 @@ import android.os.Handler;
 import android.widget.SeekBar;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Karo2 on 2016-12-03.
@@ -22,11 +24,20 @@ public class Player {
     private Handler handler = new Handler();
     private boolean isPaused = true;
 
+    PlayListStorage playListStorage;
+
     public Player(Context c, SeekBar sb, AudioManager audio) {
         context = c;
         seekBar = sb;
         mp = MediaPlayer.create(context, R.raw.marysia);
         this.audio = audio;
+        this.playListStorage = new PlayListStorage();
+
+        //init values
+        this.playListStorage.addPlayList(new Playlist("Play list 1"));
+        this.playListStorage.addPlayList(new Playlist("Play list 2"));
+        this.playListStorage.addPlayList(new Playlist("Play list 4"));
+        //
     }
 
     public void playOrStopSound(){
@@ -89,5 +100,9 @@ public class Player {
 
     public AudioManager getAudioManager(){
         return audio;
+    }
+
+    public PlayListStorage getPlayListStorage(){
+        return playListStorage;
     }
 }

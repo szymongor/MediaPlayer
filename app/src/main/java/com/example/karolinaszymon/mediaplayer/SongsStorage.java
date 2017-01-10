@@ -66,7 +66,7 @@ public class SongsStorage {
         }
     }
 
-    public String getAlbumName(File song){
+    public static String getAlbumName(File song){
         String[] parent = song.getParent().split("/");
         if(parent.length > 0){
             return parent[parent.length -1];

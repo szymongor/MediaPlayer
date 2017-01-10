@@ -1,5 +1,6 @@
 package com.example.karolinaszymon.mediaplayer;
 
+import android.content.Intent;
 import android.media.AudioManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,8 +28,10 @@ public class songs_list extends AppCompatActivity {
 
     ListView songsListView;
     Player player;
+    PlayListStorage playListStorage;
 
     ImageButton buttonPlay;
+    ImageButton buttonAddToPlaylist;
 
     TextView textViewSongTitle;
     TextView textViewCurrentTime;
@@ -42,6 +45,8 @@ public class songs_list extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_songs_list);
         this.player = PlayerManager.getPlayer();
+        this.playListStorage = this.player.getPlayListStorage();
+
         audio = this.player.getAudioManager();
         init();
     }
@@ -55,11 +60,15 @@ public class songs_list extends AppCompatActivity {
     private void initList(){
         songsListView = (ListView) findViewById(R.id.songsListView);
 
-        List<Map<String, String>> data = new ArrayList<Map<String, String>>();
+
 
         final SongsStorage songsStorage = new SongsStorage();
+        List<Map<String, String>> songsList = songsStorage.getSongsList();
+        if(!playListStorage.adding()&& playListStorage.getSelectedPlayList() != null){
+            songsList = playListStorage.getSelectedPlayList().getSongs();
+        }
 
-        SimpleAdapter adapter = new SimpleAdapter(this, songsStorage.getSongsList(),
+        SimpleAdapter adapter = new SimpleAdapter(this, songsList,
                 android.R.layout.simple_list_item_2,
                 new String[] {"title", "album"},
                 new int[] {android.R.id.text1,
@@ -71,11 +80,26 @@ public class songs_list extends AppCompatActivity {
         songsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                File song = songsStorage.getSelectedFile(position);
-                player.startNewSong(song);
-                buttonPlay.setActivated(!player.getIsPaused());
+                if(playListStorage.adding()){
+
+                    addSong(songsStorage, playListStorage.getSelectedPlayList(), position);
+                }else{
+                    playSong(songsStorage,position);
+                }
+
             }
         });
+    }
+
+    private void playSong(SongsStorage songsStorage, int position ){
+        File song = songsStorage.getSelectedFile(position);
+        player.startNewSong(song);
+        buttonPlay.setActivated(!player.getIsPaused());
+    }
+
+    private void addSong(SongsStorage songsStorage, Playlist playlist, int position ){
+        File song = songsStorage.getSelectedFile(position);
+        playlist.addSong(song);
     }
 
     private void initUIComponents() {
@@ -83,6 +107,9 @@ public class songs_list extends AppCompatActivity {
         buttonPlay = (ImageButton) findViewById(R.id.buttonPlay);
         buttonPlay.setOnClickListener(clickPlay);
         buttonPlay.setActivated(!player.getIsPaused());
+
+        buttonAddToPlaylist = (ImageButton) findViewById(R.id.buttonAddToPlaylist);
+        buttonAddToPlaylist.setOnClickListener(clickAddSong);
 
         textViewSongTitle = (TextView) findViewById(R.id.textViewTitle);
         textViewCurrentTime = (TextView) findViewById(R.id.textViewCurrentTime);
@@ -108,6 +135,18 @@ public class songs_list extends AppCompatActivity {
         }
     };
 
+    private View.OnClickListener clickAddSong = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if(playListStorage.getSelectedPlayList() == null || playListStorage.adding()){
+                return;
+            }
+            playListStorage.setAdding(true);
+            Intent intent = new Intent(songs_list.this,songs_list.class);
+            startActivity(intent);
+        }
+    };
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         switch (keyCode) {
@@ -120,6 +159,7 @@ public class songs_list extends AppCompatActivity {
                         AudioManager.ADJUST_LOWER, AudioManager.FLAG_SHOW_UI);
                 return true;
             case KeyEvent.KEYCODE_BACK:
+                playListStorage.setAdding(false);
                 finish();
                 return true;
             default:

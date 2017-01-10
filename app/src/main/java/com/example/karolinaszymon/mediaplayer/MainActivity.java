@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     SeekBar seekBar;
 
     Player player;
+    PlayListStorage playListStorage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         initUIComponents();
 
         player = new Player(this, seekBar, audio);
+        this.playListStorage = this.player.getPlayListStorage();
         SeekBarListener seek = new SeekBarListener(textViewCurrentTime, player);
         seekBar.setOnSeekBarChangeListener(seek);
         PlayerManager.setPlayer(player);
@@ -97,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
     private View.OnClickListener clickButtonPlayList = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            playListStorage.selectPlayList(-1);
             Intent intent = new Intent(MainActivity.this,playlists.class);
             startActivity(intent);
         }
